@@ -165,10 +165,21 @@ There are several method for feature selection like SelectKbest, Recursive Featu
 that resulted in the lowest error was selected, as shown in Figure 1. The optimal value of k was determined to be 10. Thereafter we fitted X and y with k = 10 and I am left with 10 features, It was also noticed that year of registration and vehicle age were
 given similar information so one of it was dropped. The plot below shows the best k.
 
-<img src="KBEST.png" alt="k selection plot" width="50%" height="50%">
+<img src="KBEST.png" alt="k selection plot" width="60%" height="50%">
 
 
 - #### 🪚 Dimensionality Reduction
+ After reducing the number of columns to 9, I further reduced the dimensionality of the data using a technique called PCA. First, I encoded the columns using two encoded methods **one-hot encoding** for columns with no more than 4 categories and **target encoding** for columns with over 4 categories. After encoding, I have 13 columns. To determine the number of components to use in PCA, I employed the elbow method. This involved plotting the explained variance ratio as a function of the number of components and looking for the point where the curve starts to level off or plateau. Based on this method, we selected 8 components, reducing the dimensionality of our data from 13 to 8.
+ 
+ <img src="pca_plot.png" alt="n selection for PCA" width="60%" height="50%">
+ 
+It is also important that I see how the features are used in each component of my PCA,a component heatmap was also plotted as shown in the plot below.
+
+<img src="component.png" alt="Component Plot" width="60%" height="50%">
+
+As seen in plot above, the impact of feature on each component are shown, standard make and standard model are showing a positive impact on component 2, also fuel type is showing a positive high impact on component 6
+
+
 - #### 🏘 Model Building. 
   - A Linear Model
   - A Random Forest
