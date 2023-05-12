@@ -147,6 +147,27 @@ as having high mileage. Otherwise, it is classified as having very high mileage.
 
 ## 🏽‍ Methods
 - #### 📥 Feature Selection and Data Sampling
+   Feature selection is the process of selecting a subset of relevant features or variables
+from a larger set of features in order to improve the performance of a machine learning
+model. The goal is to reduce the dimensionality of the input space while retaining as
+much of the original information as possible. 
+Before selectiong the features, There are some features that are naturally not relevant for the model, I will drop those once before I do automatic feature selection.
+```bash
+autotrader_sampled = autotrader_sampled.drop(columns=['public_reference', 'reg_code','log_price','current_year' ])
+```
+
+Also note that I reduced the sample size to 20% using the sample module so as to increase computational time.
+```bash
+autotrader_sampled = autotrader.sample(frac=0.20, random_state=82)
+```
+
+There are several method for feature selection like SelectKbest, Recursive Feature Elimination (RFE) and many more but I decided to use SelectKbest.Using SelectKBest requires specifying a value k to determine the best k. To accomplish this, the technique of cross-validation was employed. A linear regression model was trained with varying numbers of selected features using SelectKBest. A 10-fold cross-validation was then performed to estimate the mean squared error. The negative mean squared error was used as a scoring metric because cross val score tries to maximize the score. The mean squared error was plotted as a function of k, and the value of k
+that resulted in the lowest error was selected, as shown in Figure 1. The optimal value of k was determined to be 10. Thereafter we fitted X and y with k = 10 and I am left with 10 features, It was also noticed that year of registration and vehicle age were
+given similar information so one of it was dropped. The plot below shows the best k.
+
+<img src="KBEST.png" alt="k selection plot" width="50%" height="50%">
+
+
 - #### 🪚 Dimensionality Reduction
 - #### 🏘 Model Building. 
   - A Linear Model
