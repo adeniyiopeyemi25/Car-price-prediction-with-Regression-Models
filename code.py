@@ -1,10 +1,10 @@
 #### Problem Statement
 
- A Car Sale Adverts dataset provided by **AutoTrader**. I am asked to produce a regression model for predicting the selling price given the characteristics of the cars in the historical data given.
+ # A Car Sale Adverts dataset provided by **AutoTrader**. I am asked to produce a regression model for predicting the selling price given the characteristics of the cars in the historical data given.
 
 > ## <span style="color:#a1341c"> Importing Required Libraries. </span>
 >
->>Importing all the necessary Library here.
+#>>Importing all the necessary Library here.
 
 !pip install --upgrade scikit-learn -q --user
 
@@ -39,7 +39,7 @@ from sklearn.tree import export_text
 
 > ## <span style="color:#a1341c"> Loading/Reading and Understanding the Dataset. </span>
 >
->> I am using pandas to load my data from my local hard disk using **read_csv** and I also view the data using **head** function.
+>> #I am using pandas to load my data from my local hard disk using **read_csv** and I also view the data using **head** function.
 
 autotrader = pd.read_csv('adverts.csv')
 
@@ -58,20 +58,20 @@ autotrader.info()
 
 #### Meaning and Types of Features.
 
-From above we used  autotrader.columns which shows we have 12 columns in our dataset, 5 from the columns are explained below:  
-- **Mileage** is the actual number of miles covered by the car, and it is a **Quantitative** Feature.  
-- **standard_make** refers to the brand of the vehicle(Producer name), and it is a **Categorical** Feature.  
-- **body_type** refers to the category of a vehicle base on its design, shape and space. and it is a **Categorical** Feature.  
-- **year_of_registration** Refers to the year when the car was first registered by a user. and it is a **Quantitative** Feature.  
-- **fuel_type** is the general category of fuel and can either be gasoline or natural gas. and it is a **Categorical** Feature.
+#From above we used  autotrader.columns which shows we have 12 columns in our dataset, 5 from the columns are explained below:  
+#- **Mileage** is the actual number of miles covered by the car, and it is a **Quantitative** Feature.  
+#- **standard_make** refers to the brand of the vehicle(Producer name), and it is a **Categorical** Feature.  
+#- **body_type** refers to the category of a vehicle base on its design, shape and space. and it is a **Categorical** Feature.  
+# - **year_of_registration** Refers to the year when the car was first registered by a user. and it is a **Quantitative** Feature.  
+# - **fuel_type** is the general category of fuel and can either be gasoline or natural gas. and it is a **Categorical** Feature.
 
 #### Analysis of Univariate Distribution
 
-The analysis of univariate distributions typically includes the examination of measures such as the mean, median, mode, variance, and skewness of the distribution, Also it will be analysed by using plots.
+# The analysis of univariate distributions typically includes the examination of measures such as the mean, median, mode, variance, and skewness of the distribution, Also it will be analysed by using plots.
 
 autotrader.drop(columns='public_reference').describe()
 
-From above we can see the mean, median, max(mode) and standard deviation listed for mileage, year_of_registeration and price, maximum mileage in the data is 999999, mean year of registeration is 7.9 etc. We can as well determine the skewness of the above columns using Pearson's moment coefficient of skewness shown below:
+# From above we can see the mean, median, max(mode) and standard deviation listed for mileage, year_of_registeration and price, maximum mileage in the data is 999999, mean year of registeration is 7.9 etc. We can as well determine the skewness of the above columns using Pearson's moment coefficient of skewness shown below:
 
 mean = autotrader[['price','mileage','year_of_registration']].mean()
 median = autotrader[['price','mileage','year_of_registration']].median()
@@ -81,11 +81,11 @@ skewness = (3 * (mean - median)) / std
 
 skewness
 
-Price and mileage are both positively skewed, which mean the shape of the distribution is right-skewed and year_of_registeration has a negative skew which also indicate it is left-skewed.
+# Price and mileage are both positively skewed, which mean the shape of the distribution is right-skewed and year_of_registeration has a negative skew which also indicate it is left-skewed.
 
 #### Analysing the Univariant Distribution with plots
 
-Before ploting I decide to create a column for log_price to make my graph better.
+# Before ploting I decide to create a column for log_price to make my graph better.
 
 autotrader['log_price'] = np.log(autotrader['price'])
 
@@ -120,7 +120,7 @@ plt.subplots_adjust(wspace=0.4)
 
 
 
-We can clearly see that the mileage is skewed to the right, and there is some outliers showing from the boxplot.
+#We can clearly see that the mileage is skewed to the right, and there is some outliers showing from the boxplot.
 
 #### Analysis of Body Type , Fuel Type and Standard colour Distribution.
 
@@ -143,16 +143,14 @@ plt.ylim([0, 0.6])
 
 plt.tight_layout()
 
-
-
-Clearly it is shown here that we have more vehicles with Hackback, followed by SUV.From the second graph Petrol has more count of vehicle followed by the Diesel
+#Clearly it is shown here that we have more vehicles with Hackback, followed by SUV.From the second graph Petrol has more count of vehicle followed by the Diesel
 
 autotrader['standard_colour'].value_counts(normalize=True).plot.bar()
 plt.title("Count of Colour",size=15)
 plt.xlabel("Standard Colour")
 plt.ylabel("Count")
 
-Black colour vehicle is the most purchased, followed by white and grey.
+#Black colour vehicle is the most purchased, followed by white and grey.
 
 > ## <span style="color:#a1341c"> 1. Data/Domain Understanding and Exploration</span>
 >
@@ -163,7 +161,7 @@ autotrader.info()
 
 #### Explore Continuous/Quantitative Features
 
-We will have to plot the 2 countinous feature, Mileage and year_of_registeration against our target(Price).
+#We will have to plot the 2 countinous feature, Mileage and year_of_registeration against our target(Price).
 
 plt.subplot(1,2,1)
 sns.regplot(data=autotrader, x='mileage', y='log_price', scatter_kws={'alpha': 0.6})
@@ -171,7 +169,7 @@ sns.regplot(data=autotrader, x='mileage', y='log_price', scatter_kws={'alpha': 0
 plt.subplot(1,2,2)
 sns.regplot(data=autotrader, x='year_of_registration', y='log_price',scatter_kws={'alpha': 0.5})
 
-The plot above shows the importance/correlation of both mileage and year_of_registration to price, The higher the mileage the lower the price and the more recent the year of registeration is the higher the price.
+#The plot above shows the importance/correlation of both mileage and year_of_registration to price, The higher the mileage the lower the price and the more recent the year of registeration is the higher the price.
 
 #### Explore Some Categorical Features
 
@@ -182,44 +180,44 @@ for col in autotrader_some_cat:
     plt.title(col)
     plt.xticks(rotation=45)
 
-From the plot above we can see the predictive power of standard_colour,body_type,fuel_type to price.
+#From the plot above we can see the predictive power of standard_colour,body_type,fuel_type to price.
 
 > ## <span style="color:#a1341c"> 1. Data/Domain Understanding and Exploration</span>
->
->>**1.3. Data Processing for Data Exploration and Visualisation (1-2)**
+
+#>>**1.3. Data Processing for Data Exploration and Visualisation (1-2)**
 
 
-Data processing for data exploration and visualization refers to the process of preparing, cleaning, and transforming data so that it can be effectively explored and visualized. This will be thouroughly address in the next stage (Data Processing for Maching Learning).
+#Data processing for data exploration and visualization refers to the process of preparing, cleaning, and transforming data so that it can be effectively explored and visualized. This will be thouroughly address in the next stage (Data Processing for Maching Learning).
 
 > ## <span style="color:#a1341c"> 2. Data Processing for Machine Learning</span>
 >
->>**2.1. Dealing with Missing Values, Outliers, and Noise**
+#>>**2.1. Dealing with Missing Values, Outliers, and Noise**
 
 
 autotrader.isna().sum()
 
-From above it shows that we have 7 from the 12 columns that has NaN(Missing Values), The columns are:
-- **mileage** have **127** missing value.  
-- **reg_code** have **31857** missing value.  
-- **standard_colour** have **5378** missing value.  
-- **year_of_registration** have **33311** missing value.  
-- **body_type** have **837** missing value.  
-- **fuel_type** have **601** missing value.  
+# From above it shows that we have 7 from the 12 columns that has NaN(Missing Values), The columns are:
+# - **mileage** have **127** missing value.  
+# - **reg_code** have **31857** missing value.  
+# - **standard_colour** have **5378** missing value.  
+# - **year_of_registration** have **33311** missing value.  
+# - **body_type** have **837** missing value.  
+# - **fuel_type** have **601** missing value.  
 
 
-**We can also see the column with the missing value from the heatmap shown below:**
+#**We can also see the column with the missing value from the heatmap shown below:**
 
 sns.heatmap(autotrader.isna(),yticklabels=False)
 
 
 
-There are different ways to determine the noise or outliers, In this case I will check the unique values of each column and check the once that does not represent the majority of each column.
+#There are different ways to determine the noise or outliers, In this case I will check the unique values of each column and check the once that does not represent the majority of each column.
 
 #### Noise/Outliers in year_of_registration
 
 autotrader['year_of_registration'].unique()
 
-The **Year_of_registeration** shows some Noise, The following are seen not to be a year, it is observed that they mis typed the year, for instance 1006.0 should be 2006.0 and so on.
+#The **Year_of_registeration** shows some Noise, The following are seen not to be a year, it is observed that they mis typed the year, for instance 1006.0 should be 2006.0 and so on.
 
 999.0,
  1006.0,
@@ -240,59 +238,59 @@ The **Year_of_registeration** shows some Noise, The following are seen not to be
 
 autotrader['reg_code'].unique()
 
-We will be able to know the noise on reg_code giving the link for all UK vehicle reg code with the wikipedia link:
-https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_the_United_Kingdom
+# We will be able to know the noise on reg_code giving the link for all UK vehicle reg code with the wikipedia link:
+# https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_the_United_Kingdom
 
-It is derived from the link that year of registeration of any vehicle is categorised into 2 registeration code depending on the month of the year the car is been registered. March to August will always have reg_code of same present year e.g vehicle registered in year 2018 will have reg_code of 18, while vehicle of same year of registeration but registered between September till February the following year will have 68 which mean 50 was added to the suppose reg_code, The alphabet also represent certain years. With this information at hand we can deduce the noise from the reg_code
+# It is derived from the link that year of registeration of any vehicle is categorised into 2 registeration code depending on the month of the year the car is been registered. March to August will always have reg_code of same present year e.g vehicle registered in year 2018 will have reg_code of 18, while vehicle of same year of registeration but registered between September till February the following year will have 68 which mean 50 was added to the suppose reg_code, The alphabet also represent certain years. With this information at hand we can deduce the noise from the reg_code
 
-The **reg_code** shows some Noise, The observed outlier are **723xuu,94,85,95,38,37 and CA**  
->- 723xuu is clearly a noise.  
->- 94, 85 and 95 are noise because they are 2044, 2035 and 2045 repectively considering the wikipedia link, we are not yet in those years.  
->- 38,37 are also noise because they should be year 2038 and 2037 respectively and we are not yet in those years.
+# The **reg_code** shows some Noise, The observed outlier are **723xuu,94,85,95,38,37 and CA**  
+# >- 723xuu is clearly a noise.  
+# >- 94, 85 and 95 are noise because they are 2044, 2035 and 2045 repectively considering the wikipedia link, we are not yet in those years.  
+# >- 38,37 are also noise because they should be year 2038 and 2037 respectively and we are not yet in those years.
 
-As it has been stated above, we have 7 columns with missing value, we will have to deal with them which will be shown below:
+# As it has been stated above, we have 7 columns with missing value, we will have to deal with them which will be shown below:
 
 #### Filling missing value for reg_code
 
 autotrader[autotrader['vehicle_condition']=='NEW'].head(1)
 
-I observed that when the vehicle_condition is NEW, we have 31,249 NaN out of the 31,857 for reg_code that are NaN. This mean the vehicle are not yet registered, I checked the data to see if there are NEW cars that has reg_code but there is none. This makes it difficut to choose a value for it. It is reasonable to fill with 0 to show that they are not registered.
+# observed that when the vehicle_condition is NEW, we have 31,249 NaN out of the 31,857 for reg_code that are NaN. This mean the vehicle are not yet registered, I checked the data to see if there are NEW cars that has reg_code but there is none. This makes it difficut to choose a value for it. It is reasonable to fill with 0 to show that they are not registered.
 
 autotrader.loc[autotrader['vehicle_condition']=='NEW','reg_code'] = 0
 
-To view if NEW vehicle has been filled with the given value 0 for reg_code.
+#To view if NEW vehicle has been filled with the given value 0 for reg_code.
 
 autotrader[autotrader['vehicle_condition']=='NEW'].head(1)
 
-We can clearly see that the row with public_reference number of 202006039777689 now has reg_code of 0
+#We can clearly see that the row with public_reference number of 202006039777689 now has reg_code of 0
 
 autotrader['reg_code'].isna().sum()
 
-We still have 608 rows of reg_code that are still missing which mean the vehicle_condition of those are USED, We will further find a way to fill those with corresponding year_of_registeration that are not missing.
+#We still have 608 rows of reg_code that are still missing which mean the vehicle_condition of those are USED, We will further find a way to fill those with corresponding year_of_registeration that are not missing.
 
 #### Filling missing value for year_of_registeration
 
 autotrader[autotrader['vehicle_condition']=='NEW'].head(1)
 
-Same observation as with reg_code, when vehicle_condition is NEW, we have 31,249 NaN out of the 33,311 year_of_registeration that are NaN. After doing some rough work, I will fill the year_of registeration with current year. It mean the vehicle is NEW and has not been registered. This will also confirm NEW vehicle as reg_code 0 and year_of_registeration as any present year.
+#Same observation as with reg_code, when vehicle_condition is NEW, we have 31,249 NaN out of the 33,311 year_of_registeration that are NaN. After doing some rough work, I will fill the year_of registeration with current year. It mean the vehicle is NEW and has not been registered. This will also confirm NEW vehicle as reg_code 0 and year_of_registeration as any present year.
 
 autotrader.loc[autotrader['vehicle_condition']=='NEW','year_of_registration'] = datetime.datetime.now().year
 
-To view if the NEW vehicle have been filled with the given value of current year for our year_of_registeration, We are presently in 2023 which mean we should see 2023.
+#To view if the NEW vehicle have been filled with the given value of current year for our year_of_registeration, We are presently in 2023 which mean we should see 2023.
 
 autotrader[autotrader['vehicle_condition']=='NEW'].head(1)
 
-As we can see the first column has been filled with 2023
+#As we can see the first column has been filled with 2023
 
 autotrader['year_of_registration'].isna().sum()
 
-We still have 2062 rows of year_of_registeration that are missing, which mean the vehicle_condition of those are USED, We will further find a way to fill those with corresponding reg_code that are not missing.
+#We still have 2062 rows of year_of_registeration that are missing, which mean the vehicle_condition of those are USED, We will further find a way to fill those with corresponding reg_code that are not missing.
 
 #### Filling both reg_code and year_of_registeration for USED cars
 
-Now We will have to fill reg_code and year_of_registeration with each other, which mean we will fill year_of_registeration with its corresponding reg_code that is not missing and vise versa.
+#Now We will have to fill reg_code and year_of_registeration with each other, which mean we will fill year_of_registeration with its corresponding reg_code that is not missing and vise versa.
 
-There are some year_of_registeration and reg_code that are both missing and there is no way those can be filled, so its best we drop those once.
+#There are some year_of_registeration and reg_code that are both missing and there is no way those can be filled, so its best we drop those once.
 
 regnanYearnan=autotrader[(autotrader['reg_code'].isna())& 
                          (autotrader['year_of_registration'].isna())].index
@@ -306,7 +304,7 @@ regCodeNaN['year_of_registration'].unique()
 
 regCodeNaN.head(1)
 
-The year_of_registeration of the above is 2019.0 which mean it is expected to fill the correspoinding reg_code with 19 but I am doing this for year_of_registeration that are 2001 and above, this is so because those are the once that can be filled easily considering the wikipedia UK car registeration dataset. 
+#The year_of_registeration of the above is 2019.0 which mean it is expected to fill the correspoinding reg_code with 19 but I am doing this for year_of_registeration that are 2001 and above, this is so because those are the once that can be filled easily considering the wikipedia UK car registeration dataset. 
 
 for index in regCodeNaN.index:
 	year_of_registration = int(regCodeNaN.loc[[index], "year_of_registration"])
@@ -319,7 +317,7 @@ autotrader[(autotrader['reg_code'].isna()) &
 
 autotrader['reg_code'].isna().sum()
 
-The above are the reg_code that the year_of_Registeration are less than 2001, They are 78 and I will drop them. We can also get to fill them but I prefer to drop them since they are minimal.
+#The above are the reg_code that the year_of_Registeration are less than 2001, They are 78 and I will drop them. We can also get to fill them but I prefer to drop them since they are minimal.
 
 regnan=autotrader[(autotrader['reg_code'].isna())& 
                   (autotrader['year_of_registration'].notna())].index
@@ -328,16 +326,16 @@ autotrader.drop(regnan,inplace=True)
 
 autotrader['reg_code'].isna().sum()
 
-We have finally filled all the reg_code.
+#We have finally filled all the reg_code.
 
 #### Filling year_of_registeration with corresponding reg_code
 
-To fill the year of registeration I will have to drop the following:
+# To fill the year of registeration I will have to drop the following:
 
->- Reg_code with noise (Just 9 of them).
->- Reg_code with alphabet that has year_of_registeration as NAN(less than 30 of them).
+# >- Reg_code with noise (Just 9 of them).
+# >- Reg_code with alphabet that has year_of_registeration as NAN(less than 30 of them).
 
-I am doing this because I only want to fill those that has reg_code with numbers, Also it is reasonable to drop those because they are few and droping them will not affect my dataset negatively. It can also be filled but this will take time because I will have to code for each alphabet.
+# I am doing this because I only want to fill those that has reg_code with numbers, Also it is reasonable to drop those because they are few and droping them will not affect my dataset negatively. It can also be filled but this will take time because I will have to code for each alphabet.
  
 
 autotrader[autotrader['reg_code'].isin(['94', '85', 'CA',  '723xuu', '95', '38',  '37'])].head(1)
@@ -376,9 +374,9 @@ for index in yearORegNaNnew.index:
 
 autotrader['year_of_registration'].isna().sum()
 
-We have finally filled all the year_of_registeration.
+# We have finally filled all the year_of_registeration.
 
-**Now I want to check if we still have the noise for both reg_code and year_of_registeration, If available we will replace them with the right one.**
+# **Now I want to check if we still have the noise for both reg_code and year_of_registeration, If available we will replace them with the right one.**
 
 autotrader['reg_code'].unique()
 
@@ -396,52 +394,52 @@ autotrader['year_of_registration'].replace(
 
 autotrader['year_of_registration'].unique()
 
-The noise in the year_of_registeration are no more.
+#The noise in the year_of_registeration are no more.
 
 autotrader.isna().sum()
 
 autotrader.shape
 
-At this point we have only drop limited amount of rows, We have 402005 from the start and now we have 401549 rows.
+# At this point we have only drop limited amount of rows, We have 402005 from the start and now we have 401549 rows.
 
-#### Filling missing value in mileage
+# #### Filling missing value in mileage
 
-We will fill the mileage by grouping the vehicle with their corresponding year_of_registeration and fill with each mean. For example, all vehicle with year_of_registeration 2012 with missing mileage will be filled with the mean of vehicle registered in year 2012 
+# We will fill the mileage by grouping the vehicle with their corresponding year_of_registeration and fill with each mean. For example, all vehicle with year_of_registeration 2012 with missing mileage will be filled with the mean of vehicle registered in year 2012 
 
 autotrader['mileage']=autotrader.groupby('year_of_registration', group_keys=False)['mileage'].apply(lambda x:x.fillna(x.mean()))
 
 autotrader['mileage'].isna().sum()
 
-We have our mileage also finally filled
+#We have our mileage also finally filled
 
 #### Filling missing value for standard_colour
 
 autotrader['standard_colour'].isna().sum()
 
-From the above we have 5344 Nan Standard_colour, There are 2 columns that are correlated to it,also with my domain knowledge I think its right to group colour by standard_model and standard_make and fill the mode of colour.
+#From the above we have 5344 Nan Standard_colour, There are 2 columns that are correlated to it,also with my domain knowledge I think its right to group colour by standard_model and standard_make and fill the mode of colour.
 
 autotrader['standard_colour'] = autotrader.groupby(['standard_make', 'standard_model'], group_keys=False)['standard_colour'].apply(lambda x: x.fillna(stats.mode(x)[0][0]))
 
 
 autotrader['standard_colour'].unique()
 
-After groupby and checking the unique value, I found out that there are few of the vehicle that were given color 0, This happened because they are just 1 particular make and model and they do not have any color at all, this will be shown below:
+#After groupby and checking the unique value, I found out that there are few of the vehicle that were given color 0, This happened because they are just 1 particular make and model and they do not have any color at all, this will be shown below:
 
 autotrader[autotrader['standard_colour']==0].head(1)
 
-Its either I decide a colour for this once or I drop them, I decided to drop them because they are not much.
+#Its either I decide a colour for this once or I drop them, I decided to drop them because they are not much.
 
 autotrader=autotrader[autotrader['standard_colour']!=0]
 
 autotrader['standard_colour'].isna().sum()
 
-We have our standard_colour finally filled
+#We have our standard_colour finally filled
 
 #### Filling missing value for fuel_type
 
 autotrader['fuel_type'].isna().sum()
 
-We have 581 fuel_type that are missing out of over 400k data, filling the fuel type with mode of fuel_type which is petrol will not have a negative impact on our model.
+#We have 581 fuel_type that are missing out of over 400k data, filling the fuel type with mode of fuel_type which is petrol will not have a negative impact on our model.
 
 fuel_type_mode = autotrader['fuel_type'].mode()[0]
 
@@ -449,7 +447,7 @@ autotrader['fuel_type'] =autotrader['fuel_type'].fillna(fuel_type_mode)
 
 autotrader['fuel_type'].isna().sum()
 
-We have also filled the fuel_type.
+#We have also filled the fuel_type.
 
 #### Filling missing value for Body_Type.
 
@@ -457,19 +455,19 @@ autotrader['body_type']=autotrader.groupby(['standard_make','standard_model'], g
 
 autotrader['body_type'].unique()
 
-After groupby and checking the unique value, I found out that there are few of the vehicle that were given body_type 0, This happened because they do not have a body type for the group of make and model this will be shown below:
+#After groupby and checking the unique value, I found out that there are few of the vehicle that were given body_type 0, This happened because they do not have a body type for the group of make and model this will be shown below:
 
 no_body_type = autotrader[autotrader['body_type']==0]
 no_body_type[['standard_make','standard_model','body_type']].value_counts()
 
-From the above we have a vehicle that is Volkswagen Caddy that are 12 in numbers, I will fill it. I check google to see what type of body type is it and I found out it is Wagon, I can as well do that for others but because they are 1 or 2 in number, I will drop them.
+#From the above we have a vehicle that is Volkswagen Caddy that are 12 in numbers, I will fill it. I check google to see what type of body type is it and I found out it is Wagon, I can as well do that for others but because they are 1 or 2 in number, I will drop them.
 
 autotrader.loc[(autotrader['standard_make'] == 'Volkswagen') 
                & (autotrader['standard_model'] == 'Caddy'), 'body_type'] = 'wagon'
 
 autotrader[autotrader['standard_model'] == 'Caddy'].head(1)
 
-We can confirm that this has also been filled with body_type Wagon. I will now drop the other once.
+#We can confirm that this has also been filled with body_type Wagon. I will now drop the other once.
 
 autotrader=autotrader[autotrader['body_type']!=0]
 
@@ -477,14 +475,14 @@ autotrader[autotrader['body_type'] == 0]
 
 autotrader['body_type'].isna().sum()
 
-We have finally filled and clean the body_type.
+#We have finally filled and clean the body_type.
 
 #### Removing Noise/Outlier from Mileage
 
 max_threshold  = autotrader['mileage'].quantile(0.999)
 max_threshold 
 
-I am setting my quantile to 0.9999, due to my domain knowledge about cars, any car above 196050.48600000003 mileage is said to be an outlier and from the data we can confirm as those figures above this does not represent the majority of the mileage data.
+#I am setting my quantile to 0.9999, due to my domain knowledge about cars, any car above 196050.48600000003 mileage is said to be an outlier and from the data we can confirm as those figures above this does not represent the majority of the mileage data.
 
 autotrader = autotrader[autotrader['mileage'] < max_threshold]
 
@@ -494,7 +492,7 @@ We have taken any mileage above 196050.48600000003 from our dataset.
 
 sns.boxplot(x="mileage",data=autotrader)
 
-The box plot above shows we have reduced/removed our outliers from the mileage, this is so because there are no point outside the whisker.
+#The box plot above shows we have reduced/removed our outliers from the mileage, this is so because there are no point outside the whisker.
 
 #### Removing Noise/Outlier from Price
 
@@ -502,7 +500,7 @@ max_threshold  = autotrader['price'].quantile(0.976)
 
 max_threshold 
 
-I am setting my quantile to 0.98, due to my domain knowledge about cars, any car above 66750.0 pounds  is said to be an outlier and from the data we can confirm as those figures above this does not represent the majority of the mileage data. Also it is been confirm by AUTOTRADER that they do not set price for cars above this value.
+#I am setting my quantile to 0.98, due to my domain knowledge about cars, any car above 66750.0 pounds  is said to be an outlier and from the data we can confirm as those figures above this does not represent the majority of the mileage data. Also it is been confirm by AUTOTRADER that they do not set price for cars above this value.
 
 autotrader = autotrader[autotrader['price'] < max_threshold]
 
@@ -510,13 +508,13 @@ autotrader[autotrader['price']>66750.0]
 
 sns.boxplot(x="price",data=autotrader)
 
-The box plot above shows we have reduced/removed our outliers from the price, this is so because there are few points outside the whisker.
+#The box plot above shows we have reduced/removed our outliers from the price, this is so because there are few points outside the whisker.
 
 autotrader.shape
 
 autotrader.isna().sum()
 
-We are done filling the missing value and We still have 400711 rows from the original 402005, which mean our sample is still preserved.
+#We are done filling the missing value and We still have 400711 rows from the original 402005, which mean our sample is still preserved.
 
 #### Visualisation after Data Exploration.
 
@@ -524,7 +522,7 @@ We are done filling the missing value and We still have 400711 rows from the ori
 
 sns.regplot(data=autotrader, x='mileage', y='log_price', scatter_kws={'alpha': 0.6})
 
-It is clear that the higher the mileage the lower the price.
+#It is clear that the higher the mileage the lower the price.
 
 **body_type vs log_price.**
 
@@ -533,28 +531,28 @@ plt.xticks(rotation=45)
 sns.boxplot(x=autotrader.body_type, y=autotrader.log_price, palette=("plasma"))
 plt.ylabel("Price in Log")
 
-The Body Type SUV have higher price range than the others(though some has some high values outside the whiskers.). Most of the body type has normal distribution except for Limousine and MPV. Limousine,Window Van, Camper, Car Derived Van and Chassis Cab do not have any outlier.
+#The Body Type SUV have higher price range than the others(though some has some high values outside the whiskers.). Most of the body type has normal distribution except for Limousine and MPV. Limousine,Window Van, Camper, Car Derived Van and Chassis Cab do not have any outlier.
 
-**body_type vs fuel_type.**
+#**body_type vs fuel_type.**
 
 plt.title('Body Type vs Fuel Type')
 plt.xticks(rotation=90)
 sns.histplot(data=autotrader, x='body_type', kde=True, hue='fuel_type')
 
-We can see that:  
-1) SUV has both higher number of diesel and electric than any other type of fuel type.  
-2) Hatchback has the highest number of petrol than any other body type and also have some that are electric.  
+# We can see that:  
+# 1) SUV has both higher number of diesel and electric than any other type of fuel type.  
+# 2) Hatchback has the highest number of petrol than any other body type and also have some that are electric.  
 
-3) Most of the body type of car seem to have electric fuel type.
+# 3) Most of the body type of car seem to have electric fuel type.
 
-> ## <span style="color:#a1341c">2. Data Processing for Machine Learning</span>
->
->> **Feature Engineering, Data Transformations, Feature Selection (2-3)**
+# > ## <span style="color:#a1341c">2. Data Processing for Machine Learning</span>
+# >
+# >> **Feature Engineering, Data Transformations, Feature Selection (2-3)**
 
 
 #### Feature Engineering
 
-First I will like to know the age of all vehicles, This will be year_of_registeration subtracted from the current_year.
+#First I will like to know the age of all vehicles, This will be year_of_registeration subtracted from the current_year.
 
 #Creating a new column current_year
 autotrader['current_year'] = datetime.datetime.now().year
@@ -568,17 +566,17 @@ autotrader.head(1)
 
 #### Worthy to NOTE:
 
-Referecing to an jornal online(Used Car Mileage Vs Age – Which Matters More? https://news.motors.co.uk/used-car-mileage-vs-age-which-matters-more)
+# Referecing to an jornal online(Used Car Mileage Vs Age – Which Matters More? https://news.motors.co.uk/used-car-mileage-vs-age-which-matters-more)
 
-Calculating the average mileage of a car is tricky. According to government statistics, the average number of miles driven by cars in England each year was 7,400 miles in 2019 (the latest figures are for 2020, but they’re skewed downwards due to pandemic lockdowns so we’ve based the average on 2019 figures as it was a more normal year).
+# Calculating the average mileage of a car is tricky. According to government statistics, the average number of miles driven by cars in England each year was 7,400 miles in 2019 (the latest figures are for 2020, but they’re skewed downwards due to pandemic lockdowns so we’ve based the average on 2019 figures as it was a more normal year).
 
-With the above claim I will like to get the average mileage of the vehicle.
+# With the above claim I will like to get the average mileage of the vehicle.
 
 autotrader['average_mileage'] = autotrader['vehicle_age'] * 7400
 
 autotrader.head(1)
 
-With the average_mileage it will not be a bad idea to categorise our vehicle considering the original mileage versus the average mileage. Say if the original mileage is between 0 to half of the average mileage, the vehicle has Low mileage,if mileage is less than and also greater that half of average mileage categorize as Good mileage, if mileage is 15000 greater than average mileage, categorize as High mileage, else Very High mileage
+#With the average_mileage it will not be a bad idea to categorise our vehicle considering the original mileage versus the average mileage. Say if the original mileage is between 0 to half of the average mileage, the vehicle has Low mileage,if mileage is less than and also greater that half of average mileage categorize as Good mileage, if mileage is 15000 greater than average mileage, categorize as High mileage, else Very High mileage
 
 def categorize_mileage(autotrader):
     mileage = autotrader['mileage']
@@ -598,7 +596,7 @@ autotrader.head(1)
 
 autotrader.shape
 
-The column was originaly 12 but I have added five more features.
+#The column was originaly 12 but I have added five more features.
 
 autotrader_main = autotrader.copy()
 
@@ -720,7 +718,7 @@ X_sel = selector.transform(X_transformed)
 
 X_sel.head()
 
-Dropping year_of_registration because it has similar information with "vehicle_age"
+#Dropping year_of_registration because it has similar information with "vehicle_age"
 
 X_sel = X_sel.drop(columns = 'year_of_registration')
 
@@ -744,12 +742,12 @@ all_cat_columns = ['standard_make','standard_model', 'vehicle_condition', 'body_
 
 autotrader_model[all_cat_columns].nunique()
 
-**One hot encoding** for columns with categories not more than 4, vehicle_condition and mileage_category
+#**One hot encoding** for columns with categories not more than 4, vehicle_condition and mileage_category
 
 some_cat_feat = [ 'vehicle_condition','mileage_category']
 autotrader_sampled_encoded= pd.get_dummies(autotrader_model, columns=some_cat_feat)
 
-**Target encoding** is used for columns with category more than 4,standard_make, standard_model, body_type and fuel_type.
+#**Target encoding** is used for columns with category more than 4,standard_make, standard_model, body_type and fuel_type.
 
 import category_encoders as ce
 
@@ -779,7 +777,7 @@ autotrader_sampled_encoded.columns
 
 
 
-elbow method" where you plot the explained variance ratio as a function of the number of components and look for the point where the curve starts to level off or plateau
+#elbow method" where you plot the explained variance ratio as a function of the number of components and look for the point where the curve starts to level off or plateau
 
 #Scale before PCA
 scaler = StandardScaler()
@@ -854,7 +852,7 @@ def evaluation(y, predictions):
 
 ### POLYNOMIAL REGRESSION WITH GRID SEARCH
 
-Scaling done on PCA already so not needed for polynomial again
+#Scaling done on PCA already so not needed for polynomial again
 
 poly2 = Pipeline(steps=[
     ('polynomial', PolynomialFeatures(include_bias=False)),
@@ -1032,16 +1030,16 @@ for est in all_regr:
     scores = cross_val_score(est, X_train, y_train, cv=5, scoring='neg_root_mean_squared_error')
     print(scores.mean()*-1, scores.std())
 
-The overall performance with cross-validation is the average root mean squared error (RMSE) across all the folds of the cross-validation. From the results you above, the overall performance of the four models is:  
+#The overall performance with cross-validation is the average root mean squared error (RMSE) across all the folds of the cross-validation. From the results you above, the overall performance of the four models is:  
 
 Polynomial Regression: 4367  
 RandomForest Regression: 5058   
 Gradient Boosting Regression: 4222  
 Essemble(VotingRegressor): 4323 
 
-Lower RMSE values indicate better performance, so it looks like the Gradient Boosting Regression model has the best overall performance among the four models tested.  
+# Lower RMSE values indicate better performance, so it looks like the Gradient Boosting Regression model has the best overall performance among the four models tested.  
 
-The standard deviation of the RMSE scores provides information about the variability of the model's performance across different folds of the data. A lower value of the standard deviation suggests that the model is less sensitive to the choice of training and validation sets.
+# The standard deviation of the RMSE scores provides information about the variability of the model's performance across different folds of the data. A lower value of the standard deviation suggests that the model is less sensitive to the choice of training and validation sets.
 
 for est in all_regr:
     scores = cross_val_score(est, X_train, y_train, cv=5, scoring='neg_mean_absolute_error')
@@ -1080,12 +1078,12 @@ plt.title('True Price vs Predicted Price')
 plt.xlabel('True Price')
 plt.ylabel('Predicted Price')
 
-Ideally, all points should be close to a regressed diagonal line. So, if the Actual is 5, predicted should be reasonably close to 5.  
-For perfect prediction, Predicted=Actual, or 𝑥=𝑦, so the graph shows how much the prediction deviated from actual value (the prediction error).
+# Ideally, all points should be close to a regressed diagonal line. So, if the Actual is 5, predicted should be reasonably close to 5.  
+# For perfect prediction, Predicted=Actual, or 𝑥=𝑦, so the graph shows how much the prediction deviated from actual value (the prediction error).
 
-In the graph, the prediction was mostly overestimating the actual outcome (𝑦>𝑥)
+# In the graph, the prediction was mostly overestimating the actual outcome (𝑦>𝑥)
 
-The points that are tightly clustered around the diagonal line indicates that the model has high accuracy and is making good predictions. On the other hand, the points that are scattered widely, indicate that the model is not performing well.
+# The points that are tightly clustered around the diagonal line indicates that the model has high accuracy and is making good predictions. On the other hand, the points that are scattered widely, indicate that the model is not performing well.
 
 ## SHAP, ICE AND PDP
 
@@ -1245,12 +1243,12 @@ shap.summary_plot(
 
 
 
-The sharp summary plot combines feature importance with feature effects. Each point on the summary plot is a Shapley value of an instance per feature. The position on the y-axis is determined by the feature and on the x-axis by the Shapley value of each instance. The combined feature standard model and standard make are the most important feature, has a high Shapley value range. The color represents the value of the feature from low to high. Overlapping points are jittered in the y-axis direction, so we get a sense of the distribution of the Shapley values per feature. The features are ordered according to their importance.  
+# The sharp summary plot combines feature importance with feature effects. Each point on the summary plot is a Shapley value of an instance per feature. The position on the y-axis is determined by the feature and on the x-axis by the Shapley value of each instance. The combined feature standard model and standard make are the most important feature, has a high Shapley value range. The color represents the value of the feature from low to high. Overlapping points are jittered in the y-axis direction, so we get a sense of the distribution of the Shapley values per feature. The features are ordered according to their importance.  
 
-Feature importance: Features(variable) are ranked in descending order.  
-Impact: The horizontal location shows whether the effect of that value is associated with a higher or lower prediction.  
-Original value: Color shows whether that variable is high (in red) or low (in blue) for that observation.  
-Correlation: A high level of the “mileage and standard make” has a high and positive impact on the price and it is negatively correlated. The “high” comes from the red color, and the “positive” impact is shown on the X-axis. 
+# Feature importance: Features(variable) are ranked in descending order.  
+# Impact: The horizontal location shows whether the effect of that value is associated with a higher or lower prediction.  
+# Original value: Color shows whether that variable is high (in red) or low (in blue) for that observation.  
+# Correlation: A high level of the “mileage and standard make” has a high and positive impact on the price and it is negatively correlated. The “high” comes from the red color, and the “positive” impact is shown on the X-axis. 
 
 #### Seeing one feature with pdp
 
@@ -1305,7 +1303,7 @@ PartialDependenceDisplay.from_estimator(
 
 
 
-**Checking just the average of the non object datatypes**
+#**Checking just the average of the non object datatypes**
 
 fig, ax = plt.subplots(figsize=(10,6), constrained_layout=True)
 PartialDependenceDisplay.from_estimator(
@@ -1315,7 +1313,7 @@ PartialDependenceDisplay.from_estimator(
     ax=ax, n_cols=2
 );
 
-**The average of 2 features and their interaction**
+#**The average of 2 features and their interaction**
 
 fig, ax = plt.subplots(figsize=(10,4), constrained_layout=True)
 PartialDependenceDisplay.from_estimator(
@@ -1332,7 +1330,7 @@ PartialDependenceDisplay.from_estimator(
 
 # EXTRA.... HOW ABOUT WITHOUT PCA
 
-I am doing this for my own understanding, just curious why reducing the dimention?
+#I am doing this for my own understanding, just curious why reducing the dimention?
 
 autotrader_nopca.head()
 
